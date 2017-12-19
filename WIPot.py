@@ -30,10 +30,18 @@ try:
 
             print(output)
 
-except KeyboardInterrupt:
-    pass
+def tempgoal = 40
 
-
-
+if output = C > tempgoal 
 inkyphat.set_border(inkyphat.BLACK)
 #inkyphat.set_rotation(180)
+
+try: 
+    while TRUE:
+        if sensor.
+
+
+
+
+
+inkyphat.show()
