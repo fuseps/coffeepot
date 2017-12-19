@@ -26,19 +26,17 @@ try:
     while True:
         if sensor.get_sensor_data():
 
-            output = C,{1:.2f} %RH .format(sensor.data.temperature)
+            output = "C,{1:.2f} %RH".format(sensor.data.temperature)
 
             print(output)
 
-def tempgoal = 40
+tempgoal = 40
 
-if output = C > tempgoal 
-inkyphat.set_border(inkyphat.BLACK)
+if sensor.data.temperature > tempgoal: 
+
+    inkyphat.set_border(inkyphat.BLACK)
 #inkyphat.set_rotation(180)
 
-try: 
-    while TRUE:
-        if sensor.
 
 
 
