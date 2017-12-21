@@ -15,9 +15,12 @@ import bme680
 print("""This code will make your coffee pot an iot pot! Check at LINK TO BE ADDED SOON
 for the laser cutting files)"""
 
-## This Section will grab data from the temperature sensor and print it in terminal
+dateString = "%-I:%M %p"
 sensor = bme680.BME680()
+tempgoal = 40
 
+
+## This Section will grab data from the temperature sensor and print it in terminal
 sensor.set_temperature_oversample(bme680.OS_8X)
 sensor.set_filter(bme680.FILTER_SIZE_3)
 
@@ -30,11 +33,13 @@ try:
 
             print(output)
 
-tempgoal = 40
+
 
 if sensor.data.temperature > tempgoal: 
 
     inkyphat.set_border(inkyphat.BLACK)
+    inkyphat.text("FRESH POTS %s" % (datetime.datetime.now().strftime(dateString)))
+
 #inkyphat.set_rotation(180)
 
 
