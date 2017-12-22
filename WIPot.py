@@ -17,34 +17,48 @@ for the laser cutting files)"""
 
 dateString = "%-I:%M %p"
 sensor = bme680.BME680()
-tempgoal = 40
+tempGoal = 40
+currentTemp = sensor.data.temperature
+prevTemp = sensor.data.temperature
 
 
-## This Section will grab data from the temperature sensor and print it in terminal
+
+# This Section will grab data from the temperature sensor and print it in terminal
 sensor.set_temperature_oversample(bme680.OS_8X)
 sensor.set_filter(bme680.FILTER_SIZE_3)
 
 print("current temp:")
-try:
-    while True:
-        if sensor.get_sensor_data():
 
-            output = "C,{1:.2f} %RH".format(sensor.data.temperature)
+#line 34 to 38 will show the temperature in degrees C in the terminal on the Raspberry Pi
+while True:
+    if sensor.get_sensor_data(): 
 
-            print(output)
+        output = "{1:.2f} C".format(sensor.data.temperature)
 
+        print(output)
 
+''' this boolean function ensures that the temperature sensor and inkyphat will only display
+the FRESH POTS on the display when the temperature is above the threshold ONCE. If a new pot is 
+dropped on top of the sensor while the temperature is above the goal, nothing will change. 
 
-if sensor.data.temperature > tempgoal: 
+If the temperature drops below the goal, it will change this to the STALE POT AVOID BRO function
+ONCE.
 
-    inkyphat.set_border(inkyphat.BLACK)
-    inkyphat.text("FRESH POTS %s" % (datetime.datetime.now().strftime(dateString)))
+after this, the code block will only check for a change each 5 seconds '''
+    currentTemp = sensor.data.temperature
+    if currentTemp > tempGoal and prevTemp < tempGoal:
+        inkyphat.set_border(inkyphat.BLACK)
+        inkyphat.text("FRESH POTS %s" % (datetime.datetime.now().strftime(dateString)))
+        inkyphat.show()
+    elif currentTemp < tempGoal and prevTemp > tempGoal:
+        inkyphat.set_border(inkyphat.BLACK)
+        inkyphat.clear()
+        inkyphat.text("STALE POT, AVOID BRO")
+        inkyphat.show()
 
+    prevTemp = currentTemp
+    time.sleep(5)
+    
 #inkyphat.set_rotation(180)
 
 
-
-
-
-
-inkyphat.show()
