@@ -23,13 +23,12 @@ prevTemp = sensor.data.temperature
 
 
 
-# This Section will grab data from the temperature sensor and print it in terminal
+# This Section will grab data from the temperature sensor and print it in terminal on the raspberry pi
 sensor.set_temperature_oversample(bme680.OS_8X)
 sensor.set_filter(bme680.FILTER_SIZE_3)
 
 print("current temp:")
 
-#line 34 to 38 will show the temperature in degrees C in the terminal on the Raspberry Pi
 while True:
     if sensor.get_sensor_data(): 
 
